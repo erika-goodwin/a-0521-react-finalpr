@@ -1,0 +1,15 @@
+.filter-container {
+  width: 100%;
+}
+
+.filter-container-form {
+  width: 90%;
+
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.filter-container-form-textField {
+  width: 100%;
+  border: none;
+}

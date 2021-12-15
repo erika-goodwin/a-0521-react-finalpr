@@ -1,0 +1,9 @@
+@import-normalize;
+@import "nav.css";
+@import "filter.css";
+@import "table.css";
+
+body {
+  padding: 0;
+  margin: 0;
+}
