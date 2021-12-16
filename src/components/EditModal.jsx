@@ -2,12 +2,11 @@ import React from "react";
 import Modal from "@material-ui/core/Modal";
 import AddForm from "./AddForm";
 import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
 import { useDispatch } from "react-redux";
-import { addToLine } from '../store/action'
+import EditIcon from "@material-ui/icons/Edit";
+import { addToLine } from "../store/action";
 
-export default function AddModal() {
-
+export default function AddModal({ rowData }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -25,10 +24,12 @@ export default function AddModal() {
     dispatch(addToLine(content));
   };
 
+  // console.log("editModal rowData:", rowData);
+
   return (
     <>
-      <IconButton aria-label="add" onClick={handleOpen}>
-        <AddIcon color="primary" />
+      <IconButton aria-label="edit" onClick={handleOpen}>
+        <EditIcon className="icon" />
       </IconButton>
       <Modal
         open={open}

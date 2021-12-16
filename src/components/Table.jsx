@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,23 +9,14 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import { Button } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
 import { useSelector } from "react-redux";
 import AddModal from "./AddModal";
 import { useDispatch } from "react-redux";
 import { deleteFromLine } from "../store/action";
+import EditModal from "./EditModal";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -165,9 +155,11 @@ export default function EnhancedTable() {
   const rows = useSelector((state) => state.tableList);
 
   const dispatch = useDispatch();
-  const handleDelete = ({ rows }) => {
-    console.log("handleDelete row:", rows);
-  };
+
+  // const handleEdit = (row) => {
+  //   console.log("handleEdit Row:", row);
+  //   console.log("handleEdit Row.id:", row[0]);
+  // };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -260,10 +252,18 @@ export default function EnhancedTable() {
                       <TableCell align="left">{row.createAt}</TableCell>
                       <TableCell align="left">{row.updateAt}</TableCell>
                       <TableCell>
-                        <IconButton aria-label="edit">
+                        {/* <IconButton
+                          aria-label="edit"
+                          onClick={() => handleEdit(row)}
+                        >
                           <EditIcon className="icon" />
-                        </IconButton>
-                        <IconButton aria-label="delete" onClick={handleDelete}>
+                        </IconButton> */}
+                        <EditModal rowData={row} />
+                        {/* <IconButton aria-label="delete"> */}
+                        <IconButton
+                          aria-label="delete"
+                          onClick={() => dispatch(deleteFromLine(row))}
+                        >
                           <DeleteIcon className="icon" />
                         </IconButton>
                       </TableCell>

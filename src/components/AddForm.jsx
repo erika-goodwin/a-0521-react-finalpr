@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddForm = ({ addToDo }) => {
+const AddForm = ({ addToList }) => {
   const [content, setContent] = useState({
     id: uuidv4(),
     title: "",
@@ -48,6 +47,13 @@ const AddForm = ({ addToDo }) => {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
+
+
+  useEffect((row) => {
+    setContent({row})
+    // const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+    // recipeJSON && setRecipes(JSON.parse(recipeJSON));
+  }, []);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -64,7 +70,7 @@ const AddForm = ({ addToDo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("handlesSubmit content: ", content);
-    addToDo(content);
+    addToList(content);
     setContent({
       id: uuidv4(),
       title: "",

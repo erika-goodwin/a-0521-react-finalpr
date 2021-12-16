@@ -1,6 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import {ADD_LINE, DELETE_LINE} from "./action";
+import { ADD_LINE, DELETE_LINE, EDIT_LINE } from "./action";
 
 const initState = {
   tableList: [
@@ -47,8 +47,18 @@ const reducer = (state = initState, action) => {
         ...state,
         tableList: [...state.tableList, action.payload],
       };
-      case "DELETE_LINE":
-        return state.filter(state=>state.id !== action.payload.id)
+    case "DELETE_LINE":
+      const newList = state.tableList.filter(
+        (state) => state.id !== action.payload.id
+      );
+      return {
+        ...state,
+        tableList: newList,
+      };
+    case "EDIT_LINE":
+      return {
+        state,
+      };
 
     default:
       return state;
