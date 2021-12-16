@@ -1,0 +1,17 @@
+/* ADD MODAL */
+
+/* FORM */
+.addform-container {
+  background-color: red;
+  margin: 0 auto;
+}
+
+.addform-form-container {
+  width: 100%;
+  background-color: aquamarine;
+}
+
+.addform-form-label-formcontrol-container {
+  background-color: lightcyan;
+
+}

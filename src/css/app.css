@@ -2,6 +2,7 @@
 @import "nav.css";
 @import "filter.css";
 @import "table.css";
+@import "modal.css";
 
 body {
   padding: 0;

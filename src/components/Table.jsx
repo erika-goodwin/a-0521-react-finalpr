@@ -24,6 +24,9 @@ import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import { useSelector } from "react-redux";
+import AddModal from "./AddModal";
+import { useDispatch } from "react-redux";
+import { deleteFromLine } from "../store/action";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -103,9 +106,14 @@ function EnhancedTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
-        <IconButton aria-label="add">
-          <AddIcon color="primary" />
-        </IconButton>
+
+        <TableCell>
+          {/* <IconButton aria-label="add">
+            <AddIcon color="primary" />
+          </IconButton>
+       */}
+          <AddModal />
+        </TableCell>
       </TableRow>
     </TableHead>
   );
@@ -155,6 +163,11 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const rows = useSelector((state) => state.tableList);
+
+  const dispatch = useDispatch();
+  const handleDelete = ({ rows }) => {
+    console.log("handleDelete row:", rows);
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -246,12 +259,14 @@ export default function EnhancedTable() {
                       <TableCell align="left">{row.url}</TableCell>
                       <TableCell align="left">{row.createAt}</TableCell>
                       <TableCell align="left">{row.updateAt}</TableCell>
-                      <IconButton aria-label="edit">
-                        <EditIcon className="icon" />
-                      </IconButton>
-                      <IconButton aria-label="delete">
-                        <DeleteIcon className="icon" />
-                      </IconButton>
+                      <TableCell>
+                        <IconButton aria-label="edit">
+                          <EditIcon className="icon" />
+                        </IconButton>
+                        <IconButton aria-label="delete" onClick={handleDelete}>
+                          <DeleteIcon className="icon" />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
