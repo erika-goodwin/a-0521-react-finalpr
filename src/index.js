@@ -19,9 +19,6 @@ console.log("store.getState", store.getState);
 //   if (isDispatching) {
 //     throw new Error( false ? 0 : 'You may not call store.getState() while the reducer is executing. ' + 'The reducer has already received the state as an argum…
 
-
-store.dispatch(addToLine('1'))
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

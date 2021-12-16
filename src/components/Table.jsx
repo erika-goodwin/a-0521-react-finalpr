@@ -23,93 +23,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
-
-function createData(id, title, state, url, createdAt, updatedAt) {
-  return { id, title, state, url, createdAt, updatedAt };
-}
-
-const rows = [
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-  createData(
-    "1077824965",
-    "Ability to customize the default format for DatePipe",
-    "open",
-    "https://api.github.com/repos/angular",
-    "2021-12-12T14:48:19Z",
-    "2021-12-13T14:02:20Z"
-  ),
-];
+import { useSelector } from "react-redux";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -144,11 +58,11 @@ const headCells = [
     disablePadding: true,
     label: "Id",
   },
-  { id: "title", numeric: true, disablePadding: false, label: "Title" },
-  { id: "state", numeric: true, disablePadding: false, label: "State" },
-  { id: "url", numeric: true, disablePadding: false, label: "Url" },
-  { id: "creatAt", numeric: true, disablePadding: false, label: "Creat at" },
-  { id: "updateAt", numeric: true, disablePadding: false, label: "Update at" },
+  { id: "title", numeric: false, disablePadding: true, label: "Title" },
+  { id: "state", numeric: false, disablePadding: true, label: "State" },
+  { id: "url", numeric: false, disablePadding: true, label: "Url" },
+  { id: "creatAt", numeric: false, disablePadding: true, label: "Creat at" },
+  { id: "updateAt", numeric: false, disablePadding: true, label: "Update at" },
 ];
 
 function EnhancedTableHead(props) {
@@ -168,14 +82,6 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox">
-          <Checkbox
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ 'aria-label': 'select all desserts' }}
-          />
-        </TableCell> */}
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -215,77 +121,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === "light"
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: "1 1 100%",
-  },
-}));
-
-// const EnhancedTableToolbar = (props) => {
-//   const classes = useToolbarStyles();
-//   const { numSelected } = props;
-
-//   return (
-//     <Toolbar
-//       className={clsx(classes.root, {
-//         [classes.highlight]: numSelected > 0,
-//       })}
-//     >
-//       {numSelected > 0 ? (
-//         <Typography
-//           className={classes.title}
-//           color="inherit"
-//           variant="subtitle1"
-//           component="div"
-//         >
-//           {numSelected} selected
-//         </Typography>
-//       ) : (
-//         <Typography
-//           className={classes.title}
-//           variant="h6"
-//           id="tableTitle"
-//           component="div"
-//         >
-//           Nutrition
-//         </Typography>
-//       )}
-
-//       {numSelected > 0 ? (
-//         <Tooltip title="Delete">
-//           <IconButton aria-label="delete">
-//             <DeleteIcon />
-//           </IconButton>
-//         </Tooltip>
-//       ) : (
-//         <Tooltip title="Filter list">
-//           <IconButton aria-label="filter list">
-//             <FilterListIcon />
-//           </IconButton>
-//         </Tooltip>
-//       )}
-//     </Toolbar>
-//   );
-// };
-
-// EnhancedTableToolbar.propTypes = {
-//   numSelected: PropTypes.number.isRequired,
-// };
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -318,6 +153,8 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const rows = useSelector((state) => state.tableList);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -363,10 +200,6 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  //   const handleChangeDense = (event) => {
-  //     setDense(event.target.checked);
-  //   };
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -395,9 +228,8 @@ export default function EnhancedTable() {
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
+                .map((row) => {
                   const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
@@ -408,20 +240,6 @@ export default function EnhancedTable() {
                       key={row.id}
                       selected={isItemSelected}
                     >
-                      {/* <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.name}
-                      </TableCell> */}
                       <TableCell align="left">{row.id}</TableCell>
                       <TableCell align="left">{row.title}</TableCell>
                       <TableCell align="left">{row.state}</TableCell>

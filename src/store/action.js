@@ -4,7 +4,7 @@ export const REMOVE_LINE = 'REMOVE_LINE'
 
 
 //Action Creator
-export const addToLine = () => ({
+export const addToLine = (content) => ({
     type: ADD_LINE,
-    payload: ''
+    payload: content
 })
