@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddForm = ({ addToList, editMode, rowId, editList }) => {
+const AddForm = ({ onSave, editMode, rowId }) => {
   const prevData = useSelector((state) =>
     state.tableList.find((list) => list.id === rowId)
   );
@@ -63,6 +63,7 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
     console.log("prev", prevData);
     console.log("editMode: ", editMode);
     editMode && setContent(prevData);
+    
   }, []);
 
   const handleChange = (e) => {
@@ -80,7 +81,9 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("handlesSubmit content: ", content);
-    editMode ? editLine(content) : addToList(content);
+    console.log("handlesSubmit content editMode: ", editMode);
+    // editMode ? editList(content) : addToList(content);
+    onSave(content);
     setContent({
       id: uuidv4(),
       title: "",
@@ -114,7 +117,7 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
                 <Input
                   required
                   name="id"
-                  value={content.id || ""}
+                  value={content?.id || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -136,7 +139,7 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
                 </InputLabel>
                 <Input
                   name="title"
-                  value={content.title || ""}
+                  value={content?.title || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -156,7 +159,7 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
                 </InputLabel>
                 <Input
                   name="state"
-                  value={content.state || ""}
+                  value={content?.state || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -176,7 +179,7 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
                 </InputLabel>
                 <Input
                   name="url"
-                  value={content.url || ""}
+                  value={content?.url || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -195,7 +198,7 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
                 </InputLabel>
                 <Input
                   name="createdAt"
-                  value={content.createdAt || ""}
+                  value={content?.createdAt || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -223,7 +226,7 @@ const AddForm = ({ addToList, editMode, rowId, editList }) => {
                 </InputLabel>
                 <Input
                   name="updatedAt"
-                  value={content.updatedAt || ""}
+                  value={content?.updatedAt || ""}
                   onChange={handleChange}
                   color="secondary"
                 />

@@ -59,15 +59,9 @@ const reducer = (state = initState, action) => {
       const indexToEdit = state.tableList.findIndex(
         (row) => row.id === action.payload.id
       );
-      const currentObject = state.tableList[indexToEdit];
-      // const newObject = { ...objectToEdit, action.payload }
-      const newObject = currentObject.map(item => item = action.payload ? item: action.payload)
-      // const newObject = currentObject.map(item => item = action.payload ? item: action.payload)
+      state.tableList[indexToEdit] = action.payload;
 
-      return {
-        ...state,
-        tableList: [...state.tableList, newObject],
-      };
+      return state;
     default:
       return state;
   }

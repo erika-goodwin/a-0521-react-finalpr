@@ -34,7 +34,7 @@ export default function AddModal() {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <AddForm addToList={addToList} editMode="false" />
+        <AddForm onSave={addToList} editMode="false" />
       </Modal>
     </>
   );

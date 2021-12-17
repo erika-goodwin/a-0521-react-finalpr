@@ -34,7 +34,7 @@ export default function AddModal({ rowData }) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <AddForm editList={editList} editMode="true" rowId={rowData.id} />
+        <AddForm onSave={editList} editMode="true" rowId={rowData.id} />
       </Modal>
     </>
   );
