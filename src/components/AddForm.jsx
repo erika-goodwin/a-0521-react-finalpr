@@ -6,6 +6,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { list } from "postcss";
+import { editLine } from "../store/action";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -34,7 +37,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddForm = ({ addToList }) => {
+const AddForm = ({ addToList, editMode, rowId, editList }) => {
+  const prevData = useSelector((state) =>
+    state.tableList.find((list) => list.id === rowId)
+  );
+
   const [content, setContent] = useState({
     id: uuidv4(),
     title: "",
@@ -48,11 +55,14 @@ const AddForm = ({ addToList }) => {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
+  useEffect(() => {
+    console.log("content", content);
+  }, [content]);
 
-  useEffect((row) => {
-    setContent({row})
-    // const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
-    // recipeJSON && setRecipes(JSON.parse(recipeJSON));
+  useEffect(() => {
+    console.log("prev", prevData);
+    console.log("editMode: ", editMode);
+    editMode && setContent(prevData);
   }, []);
 
   const handleChange = (e) => {
@@ -64,13 +74,13 @@ const AddForm = ({ addToList }) => {
       ...prevState,
       [name]: value,
     }));
-    console.log(content);
+    console.log("handle change: ", content);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("handlesSubmit content: ", content);
-    addToList(content);
+    editMode ? editLine(content) : addToList(content);
     setContent({
       id: uuidv4(),
       title: "",
@@ -90,7 +100,7 @@ const AddForm = ({ addToList }) => {
           <div>
             <label>
               <FormControl
-                sx={{ m: 1, width: "100px" }}
+                sx={{ m: 1, width: "200px" }}
                 variant="standard"
                 className="addform-form-label-formcontrol-container"
               >
@@ -104,7 +114,7 @@ const AddForm = ({ addToList }) => {
                 <Input
                   required
                   name="id"
-                  value={content.id}
+                  value={content.id || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -126,7 +136,7 @@ const AddForm = ({ addToList }) => {
                 </InputLabel>
                 <Input
                   name="title"
-                  value={content.title}
+                  value={content.title || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -146,7 +156,7 @@ const AddForm = ({ addToList }) => {
                 </InputLabel>
                 <Input
                   name="state"
-                  value={content.state}
+                  value={content.state || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -166,7 +176,7 @@ const AddForm = ({ addToList }) => {
                 </InputLabel>
                 <Input
                   name="url"
-                  value={content.url}
+                  value={content.url || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -185,7 +195,7 @@ const AddForm = ({ addToList }) => {
                 </InputLabel>
                 <Input
                   name="createdAt"
-                  value={content.createdAt}
+                  value={content.createdAt || ""}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -213,7 +223,7 @@ const AddForm = ({ addToList }) => {
                 </InputLabel>
                 <Input
                   name="updatedAt"
-                  value={content.updatedAt}
+                  value={content.updatedAt || ""}
                   onChange={handleChange}
                   color="secondary"
                 />

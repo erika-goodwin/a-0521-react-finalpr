@@ -14,7 +14,7 @@ export const deleteFromLine = (payload) => ({
   payload: payload,
 });
 
-export const editLine = (id) => ({
+export const editLine = (content) => ({
   type: EDIT_LINE,
-  payload: id,
+  payload: content,
 });

@@ -4,7 +4,7 @@ import AddForm from "./AddForm";
 import IconButton from "@material-ui/core/IconButton";
 import { useDispatch } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
-import { addToLine } from "../store/action";
+import { editLine } from "../store/action";
 
 export default function AddModal({ rowData }) {
   const [open, setOpen] = React.useState(false);
@@ -18,13 +18,10 @@ export default function AddModal({ rowData }) {
   };
 
   const dispatch = useDispatch();
-
-  const addToList = (content) => {
-    console.log("App content:", content);
-    dispatch(addToLine(content));
+  const editList = (content) => {
+    console.log("dispatch content(edit):", content);
+    dispatch(editLine(content));
   };
-
-  // console.log("editModal rowData:", rowData);
 
   return (
     <>
@@ -37,7 +34,7 @@ export default function AddModal({ rowData }) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <AddForm addToList={addToList} />
+        <AddForm editList={editList} editMode="true" rowId={rowData.id} />
       </Modal>
     </>
   );
