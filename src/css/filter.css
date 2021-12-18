@@ -1,15 +1,18 @@
 .filter-container {
   width: 100%;
+  /* background-color: azure; */
 }
 
 .filter-container-form {
+  /* background-color: blanchedalmond; */
   width: 90%;
 
-  margin: 0 auto;
-  padding: 1rem 0;
+  margin-left: 5% !important;
+  padding: 1rem 0 !important;
 }
 
 .filter-container-form-textField {
+  /* background-color: lavender; */
   width: 100%;
   border: none;
 }

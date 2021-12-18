@@ -2,17 +2,27 @@
 
 /* FORM */
 .addform-container {
-  background-color: red;
+  /* background-color: red; */
 
   width: 100%;
 }
 
 .addform-form-container {
   width: 100%;
-  background-color: aquamarine;
-  margin: 0 auto;
+
+  /* background-color: aquamarine; */
 }
 
 .addform-form-label-formcontrol-container {
-  background-color: lightcyan;
+  /* background-color: lightcyan; */
+  width: 100%;
+  /* margin-left: 5% !important; */
+}
+.addform-form-label-formcontrol-input {
+  word-wrap: normal;
+  word-break: normal;
+}
+
+.addform-form-button {
+  margin-top: 1rem;
 }

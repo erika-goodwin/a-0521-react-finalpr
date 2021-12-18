@@ -28,20 +28,19 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 400,
+    width: 500,
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    // border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     display: "flex",
   },
 }));
 
-const AddForm = ({ onSave, editMode, rowId }) => {
+const AddForm = ({ onSave, onClose, rowId }) => {
   const prevData = useSelector((state) =>
     state.tableList.find((list) => list.id === rowId)
   );
-
   const [content, setContent] = useState({
     id: uuidv4(),
     title: "",
@@ -56,15 +55,14 @@ const AddForm = ({ onSave, editMode, rowId }) => {
   const [modalStyle] = React.useState(getModalStyle);
 
   useEffect(() => {
-    console.log("content", content);
-  }, [content]);
+    console.log("prev", prevData);
+    // console.log("editMode: ", editMode);
+    prevData && setContent(prevData);
+  }, []);
 
   useEffect(() => {
-    console.log("prev", prevData);
-    console.log("editMode: ", editMode);
-    editMode && setContent(prevData);
-    
-  }, []);
+    console.log("content", content);
+  }, [content]);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -75,14 +73,10 @@ const AddForm = ({ onSave, editMode, rowId }) => {
       ...prevState,
       [name]: value,
     }));
-    console.log("handle change: ", content);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handlesSubmit content: ", content);
-    console.log("handlesSubmit content editMode: ", editMode);
-    // editMode ? editList(content) : addToList(content);
     onSave(content);
     setContent({
       id: uuidv4(),
@@ -98,12 +92,11 @@ const AddForm = ({ onSave, editMode, rowId }) => {
     <div style={modalStyle} className={classes.paper}>
       <div className="addform-container">
         <form onSubmit={handleSubmit} className="addform-form-container">
-          <h2>Add new Issue</h2>
+          {prevData ? <h2>Issue id: {prevData.id}</h2> : <h2>Add new Issue</h2>}
 
           <div>
             <label>
               <FormControl
-                sx={{ m: 1, width: "200px" }}
                 variant="standard"
                 className="addform-form-label-formcontrol-container"
               >
@@ -113,11 +106,11 @@ const AddForm = ({ onSave, editMode, rowId }) => {
                 >
                   Id*
                 </InputLabel>
-                )
+
                 <Input
                   required
                   name="id"
-                  value={content?.id || ""}
+                  value={content?.id}
                   onChange={handleChange}
                   color="secondary"
                 />
@@ -130,7 +123,10 @@ const AddForm = ({ onSave, editMode, rowId }) => {
 
           <div>
             <label>
-              <FormControl sx={{ m: 1, width: "100px" }} variant="standard">
+              <FormControl
+                variant="standard"
+                className="addform-form-label-formcontrol-container"
+              >
                 <InputLabel
                   htmlFor="standard-adornment-password"
                   color="secondary"
@@ -149,7 +145,10 @@ const AddForm = ({ onSave, editMode, rowId }) => {
 
           <div>
             <label>
-              <FormControl sx={{ m: 1, width: "100px" }} variant="standard">
+              <FormControl
+                variant="standard"
+                className="addform-form-label-formcontrol-container"
+              >
                 {}
                 <InputLabel
                   htmlFor="standard-adornment-password"
@@ -162,6 +161,7 @@ const AddForm = ({ onSave, editMode, rowId }) => {
                   value={content?.state || ""}
                   onChange={handleChange}
                   color="secondary"
+                  className="addform-form-label-formcontrol-input"
                 />
               </FormControl>
             </label>
@@ -169,7 +169,10 @@ const AddForm = ({ onSave, editMode, rowId }) => {
 
           <div>
             <label>
-              <FormControl sx={{ m: 1, width: "100px" }} variant="standard">
+              <FormControl
+                variant="standard"
+                className="addform-form-label-formcontrol-container"
+              >
                 {}
                 <InputLabel
                   htmlFor="standard-adornment-password"
@@ -188,7 +191,10 @@ const AddForm = ({ onSave, editMode, rowId }) => {
           </div>
           <div>
             <label>
-              <FormControl sx={{ m: 1, width: "100px" }} variant="standard">
+              <FormControl
+                variant="standard"
+                className="addform-form-label-formcontrol-container"
+              >
                 {}
                 <InputLabel
                   htmlFor="standard-adornment-password"
@@ -216,7 +222,10 @@ const AddForm = ({ onSave, editMode, rowId }) => {
         </label> */}
           <div>
             <label>
-              <FormControl sx={{ m: 1, width: "100px" }} variant="standard">
+              <FormControl
+                variant="standard"
+                className="addform-form-label-formcontrol-container"
+              >
                 {}
                 <InputLabel
                   htmlFor="standard-adornment-password"
@@ -234,11 +243,14 @@ const AddForm = ({ onSave, editMode, rowId }) => {
             </label>
           </div>
 
-          {/* <input type="submit" value="Submit"></input> */}
-          <Button type="submit" size="medium">
-            SAVE
-          </Button>
-          <Button size="medium">Cancel</Button>
+          <div className="addform-form-button">
+            <Button type="submit" size="medium">
+              SAVE
+            </Button>
+            <Button size="medium" onClick={onClose}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </div>
     </div>

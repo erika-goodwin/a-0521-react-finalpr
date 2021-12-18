@@ -37,6 +37,7 @@ const initState = {
       updatedAt: "2021-12-13T14:02:20Z",
     },
   ],
+  filterInput: [""],
 };
 
 const reducer = (state = initState, action) => {
@@ -56,12 +57,45 @@ const reducer = (state = initState, action) => {
         tableList: newList,
       };
     case "EDIT_LINE":
+      const newArray = state.tableList;
       const indexToEdit = state.tableList.findIndex(
         (row) => row.id === action.payload.id
       );
-      state.tableList[indexToEdit] = action.payload;
+      newArray[indexToEdit] = action.payload;
 
-      return state;
+      return {
+        ...state,
+        tableList: [...newArray],
+      };
+    case "FILTER_LINE":
+      const filterValue = action.payload.toLowerCase();
+
+      const stateId = state.tableList.id.toLowerCase();
+      const stateTitle = state.tableList.title.toLowerCase();
+
+      const filtedId = stateId.filter(
+        if(){
+
+        }else if(){
+          
+        }
+      ).map();
+
+      // const checkedId = state.tableList.id.map((val) => {
+      //   if (filterValue === "") {
+      //     return val;
+      //   } else if (val.toLowerCase().includes(filterValue))
+      //     return val;
+      // });
+
+      return {
+        ...state,
+        tableList: {
+          ...state.tableList,
+          id: filtedId,
+        },
+      };
+
     default:
       return state;
   }

@@ -11,6 +11,8 @@ export default function AddModal() {
 
   const handleOpen = () => {
     setOpen(true);
+
+    
   };
 
   const handleClose = () => {
@@ -34,7 +36,7 @@ export default function AddModal() {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <AddForm onSave={addToList} editMode="false" />
+        <AddForm onSave={addToList} onClose={handleClose}/>
       </Modal>
     </>
   );
