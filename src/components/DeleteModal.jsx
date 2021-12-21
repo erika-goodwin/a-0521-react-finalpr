@@ -1,12 +1,12 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
-import AddForm from "./ModalForm";
+import DeleteConfirm from "./DeleteConfirm";
 import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch } from "react-redux";
-import EditIcon from "@material-ui/icons/Edit";
-import { editLine } from "../store/action";
+import { deleteFromLine } from "../store/action";
 
-export default function EditModal({ rowData }) {
+export default function DeleteModal({ rowData }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -18,15 +18,15 @@ export default function EditModal({ rowData }) {
   };
 
   const dispatch = useDispatch();
-  const editList = (content) => {
-    console.log("dispatch content(edit):", content);
-    dispatch(editLine(content));
+  const deleteList = (content) => {
+    console.log("dispatch content(delete):", content);
+    dispatch(deleteFromLine(content));
   };
 
   return (
     <>
-      <IconButton aria-label="edit" onClick={handleOpen}>
-        <EditIcon className="icon" />
+      <IconButton aria-label="delete" onClick={handleOpen}>
+        <DeleteIcon className="icon" />
       </IconButton>
       <Modal
         open={open}
@@ -34,7 +34,11 @@ export default function EditModal({ rowData }) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <AddForm onSave={editList} onClose={handleClose} rowId={rowData.id} />
+        <DeleteConfirm
+          onSave={deleteList}
+          onClose={handleClose}
+          rowId={rowData.id}
+        />
       </Modal>
     </>
   );

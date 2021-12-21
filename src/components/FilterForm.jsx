@@ -24,7 +24,7 @@ export default function FilterForm({ onFilter }) {
     e.preventDefault();
     console.log("submitted");
     setFilterInput("");
-  };
+  };    
 
   return (
     <div>

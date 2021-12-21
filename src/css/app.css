@@ -3,6 +3,7 @@
 @import "filter.css";
 @import "table.css";
 @import "modal.css";
+@import "delete.css";
 
 body {
   padding: 0;

@@ -7,8 +7,7 @@ import Input from "@material-ui/core/Input";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { list } from "postcss";
-import { editLine } from "../store/action";
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -50,18 +49,22 @@ const AddForm = ({ onSave, onClose, rowId }) => {
     updatedAt: "",
   });
 
+  let tzoffset = new Date().getTimezoneOffset() * 60000;
+  //offset in milliseconds
+  let createTime = new Date(Date.now() - tzoffset).toISOString().slice(0, -1);
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
   useEffect(() => {
     console.log("prev", prevData);
-    // console.log("editMode: ", editMode);
     prevData && setContent(prevData);
   }, []);
 
   useEffect(() => {
-    console.log("content", content);
+    console.log("content:", content);
+    console.log("createTime:", createTime);
   }, [content]);
 
   const handleChange = (e) => {
@@ -73,11 +76,27 @@ const AddForm = ({ onSave, onClose, rowId }) => {
       ...prevState,
       [name]: value,
     }));
+
+    prevData &&
+      setContent((prevState) => ({
+        ...prevState,
+        updatedAt: createTime,
+      }));
+    !prevData &&
+      setContent((prevState) => ({
+        ...prevState,
+        createdAt: createTime,
+      }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    console.log("submite createTime:", createTime);
+    console.log("submite content:", content);
+
     onSave(content);
+    onClose();
     setContent({
       id: uuidv4(),
       title: "",

@@ -1,6 +1,5 @@
-import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { ADD_LINE, DELETE_LINE, EDIT_LINE } from "./action";
+
 
 const initState = {
   tableList: [
@@ -68,31 +67,33 @@ const reducer = (state = initState, action) => {
         tableList: [...newArray],
       };
     case "FILTER_LINE":
-      const filterValue = action.payload.toLowerCase();
+      console.log("filter action.payload:", action.payload);
+      const filterInput = action.payload.toLowerCase();
+      console.log("filter filterInput:", filterInput);
 
-      const stateId = state.tableList.id.toLowerCase();
-      const stateTitle = state.tableList.title.toLowerCase();
+      const stateArr = state.tableList;
+      console.log("state tableList array:", stateArr);
 
-      const filtedId = stateId.filter(
-        if(){
+      const filteredArr = stateArr.filter((item) => {
+        if (!filterInput) {
+          console.log(" filter input is empty", item);
+          return item;
+        } else if ((item[0].id = filterInput)) {
+          // } else if(item.includes(filterInput)){
+          console.log(" They have match, yay", item);
 
-        }else if(){
-          
+          // const filteredIdIndex = val.indexOf(val=> val = filterInput)
+          // return filteredIdIndex
         }
-      ).map();
+      });
 
-      // const checkedId = state.tableList.id.map((val) => {
-      //   if (filterValue === "") {
-      //     return val;
-      //   } else if (val.toLowerCase().includes(filterValue))
-      //     return val;
-      // });
+      console.log(" filtered Array:", filteredArr);
 
       return {
         ...state,
         tableList: {
           ...state.tableList,
-          id: filtedId,
+          // id: filtedId,
         },
       };
 

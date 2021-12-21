@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
-import AddForm from "./AddForm";
+import AddForm from "./ModalForm";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch } from "react-redux";
@@ -9,10 +9,11 @@ import { addToLine } from "../store/action";
 export default function AddModal() {
   const [open, setOpen] = React.useState(false);
 
+
+
+
   const handleOpen = () => {
     setOpen(true);
-
-    
   };
 
   const handleClose = () => {
@@ -36,7 +37,11 @@ export default function AddModal() {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <AddForm onSave={addToList} onClose={handleClose}/>
+        <AddForm
+          onSave={addToList}
+          onClose={handleClose}
+
+        />
       </Modal>
     </>
   );
